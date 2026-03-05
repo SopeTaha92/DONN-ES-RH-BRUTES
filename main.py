@@ -7,14 +7,15 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 from pathlib import Path
-from src.Data.data_brute_rh import brute_data
+from src import brute_data, excel_generate
+
 
 
 today = datetime.now().strftime('%d-%m-%Y_%H_%M')
 
 dir_path = Path(__file__).parent
 os.makedirs(dir_path, exist_ok=True)
-file = dir_path / f"exo_2_refait_{today}.xlsx"
+file = dir_path / "Output_excel" / f"DONNÉES_RH_BRUTES_{today}.xlsx"
 
 
 df_rh_brute = brute_data()
@@ -22,34 +23,7 @@ print("📊 DONNÉES RH BRUTES :")
 print(df_rh_brute)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"""df_rh = df_rh_brute.copy()
+df_rh = df_rh_brute.copy()
 
 column_text = ['full_name', 'position', 'city', 'performance_rating']
 df_rh[column_text] = df_rh[column_text].apply(lambda x: x.str.strip().str.title())
@@ -97,20 +71,11 @@ onglets = {
     'Données Salaires Brutes' : df_rh_brute,
     'Données Salaires Néttoyées' : df_rh,
     'Données Salaires Par Catégories' : df_rh_category
-}"""
+}
+
+Excel = excel_generate(file, onglets)
 
 
-
-    # 2. On crée les formats en déballant le dictionnaire base_style avec **
-"""    data_format = workbook.add_format(base_style)
-
-    header_format = workbook.add_format({
-        **base_style, # Copie les bordures et l'alignement
-        'bold': True,
-        'bg_color': '#4F81BD',
-        'font_color': 'white'
-    })
-"""
 
 
 
